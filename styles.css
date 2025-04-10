@@ -1,15 +1,14 @@
 body {
   font-family: Arial, sans-serif;
-  width: 450px;
   text-align: center;
   padding: 0;
 }
 .container {
-  display: flex;
-  flex-direction: column;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: calc(100% - 40px);
   align-items: center;
-  justify-content: center;
-  height: 100vh;
 }
 .msg {
   color: red;
@@ -49,3 +48,11 @@ p {
 .hidden {
   display: none !important;
 }
+
+#fillUserNTD {
+  /* display: none; */
+  background-color: white;
+  font-size: 12px;
+  width: auto !important;
+}
+
