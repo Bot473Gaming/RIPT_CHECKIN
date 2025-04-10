@@ -1,24 +1,36 @@
 let buoi = "sang";
-document.getElementById("logoutButton")?.addEventListener("click", () => {
-    chrome.storage.local.remove("token", () => {
-        window.location.href = "popup.html";
-    });
-});
-var dataUser = {
+//user localStorage to save data
+// localStorage.clear();
+
+// var dataUser = JSON.parse(localStorage.getItem("dataUser")) || {
+var dataUser = JSON.parse(localStorage.getItem("dataUser")) || {
     username: "",
-    token: "",
+    password: "",
+    name: "",
+    token: null,
 };
 
+if (dataUser.token) {
+    document.getElementById("username").value = dataUser.username;
+    document.getElementById("password").value = dataUser.password;
+    document.getElementById("token").value = dataUser.token;
+    getInfo();
+}
 function fillData() {
   document.getElementById("username").value = "001206086703";
   document.getElementById("password").value = "ript@123";
   login()
+}
+function clearData() {
+  localStorage.clear();
+  location.reload();
 }
 async function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const token = document.getElementById("token");
     const loginMessage = document.getElementById("loginMessage");
+    const clearBtn = document.getElementById("clearBtn");
     console.log(username, password);
     // return;
     if (!username || !password) {
@@ -38,29 +50,18 @@ async function login() {
             token.value = data.data.accessToken;
             dataUser = {
               token: data.data.accessToken,
-              username: data.data.user.profile.name,
+              username: username,
+              name: data.data.user.profile.name,
+              password: password,
             };
+            localStorage.setItem("dataUser", JSON.stringify(dataUser));
             getInfo();
+            clearBtn.classList.remove("hidden");
         } else {
             loginMessage.textContent = "Đăng nhập thất bại";
         }
     } catch (error) {
         loginMessage.textContent = "Lỗi kết nối tới máy chủ!";
-    }
-}
-
-// function check token is valid
-function checkToken() {
-    tokenMessage = document.getElementById("tokenMessage");
-    token = document.getElementById("token").value;
-    if (!token) {
-        tokenMessage.textContent = "Bạn chưa nhập token!";
-        return;
-    }
-    const isOk = getInfo();
-    if (!isOk) {
-        tokenMessage.textContent = "Token không hợp lệ!";
-        return;
     }
 }
 
@@ -74,7 +75,7 @@ async function getInfo() {
         messageElement.textContent = "Bạn chưa đăng nhập!";
         return;
     }
-    document.getElementById("hoten").innerHTML = dataUser.username;
+    document.getElementById("hoten").innerHTML = dataUser.name;
     try {
         const today = new Date();
         const day = today.getDate();
