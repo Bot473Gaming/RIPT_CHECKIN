@@ -13,7 +13,6 @@ var dataUser = JSON.parse(localStorage.getItem("dataUser")) || {
 if (dataUser.token) {
     document.getElementById("username").value = dataUser.username;
     document.getElementById("password").value = dataUser.password;
-    document.getElementById("token").value = dataUser.token;
     getInfo();
 }
 function fillData() {
@@ -28,9 +27,8 @@ function clearData() {
 async function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    const token = document.getElementById("token");
     const loginMessage = document.getElementById("loginMessage");
-    const clearBtn = document.getElementById("clearBtn");
+
     console.log(username, password);
     // return;
     if (!username || !password) {
@@ -47,7 +45,6 @@ async function login() {
         const data = await response.json();
 
         if (response.ok && data.data.accessToken) {
-            token.value = data.data.accessToken;
             dataUser = {
               token: data.data.accessToken,
               username: username,
@@ -66,9 +63,10 @@ async function login() {
 }
 
 async function getInfo() {
+  const clearBtn = document.getElementById("clearBtn");
     console.log("getInfo");
     const result = {
-        token: document.getElementById("token").value,
+        token: dataUser.token,
     };
 
     if (!result.token) {
@@ -156,7 +154,7 @@ async function getInfo() {
 document.getElementById("checkinbtn").addEventListener("click", async () => {
     const messageElement = document.getElementById("attendanceMessage");
     const result = {
-        token: document.getElementById("token").value,
+        token: dataUser.token,
     };
     // Lấy token từ Chrome storage
     // chrome.storage.local.get(["token"], async (result) => {
@@ -199,7 +197,7 @@ document.getElementById("checkinbtn").addEventListener("click", async () => {
 document.getElementById("checkoutbtn").addEventListener("click", async () => {
     const messageElement = document.getElementById("attendanceMessage");
     const result = {
-        token: document.getElementById("token").value,
+        token: dataUser.token,
     };
     // Lấy token từ Chrome storage
     // chrome.storage.local.get(["token"], async (result) => {
