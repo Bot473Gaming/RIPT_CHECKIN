@@ -56,7 +56,7 @@ async function login() {
             };
             localStorage.setItem("dataUser", JSON.stringify(dataUser));
             getInfo();
-            clearBtn.classList.remove("hidden");
+            
         } else {
             loginMessage.textContent = "Đăng nhập thất bại";
         }
@@ -75,6 +75,7 @@ async function getInfo() {
         messageElement.textContent = "Bạn chưa đăng nhập!";
         return;
     }
+    clearBtn.classList.remove("hidden");
     document.getElementById("hoten").innerHTML = dataUser.name;
     try {
         const today = new Date();
