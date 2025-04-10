@@ -7,25 +7,43 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Chào mừng <strong id="hoten"></strong>!</h2>
-  <div style="display: flex; flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;">
+  <div class="container">
+    <div style="display: flex; flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;">
     <div>
+      <!-- add tab login username, password to get token -->
+      <h3>Đăng nhập</h3>
+      <div class="login-form">
+        <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+        <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+        <button id="submitLogin" onclick="login()">Đăng nhập</button>
+        <p class="msg" id="loginMessage"></p>
+      </div>
+      <button id="fillUserNTD" onclick="fillData()">Đăng nhập với người dùng là Dương</button>
+      
+      <!-- input token req -->
+      <br>
+      <!-- <label for="token">Token:</label> -->
+      <input type="text" id="token" placeholder="Nhập token" required hidden>
+      <!-- <button id="submitToken" onclick=checkToken()>Gửi token</button> -->
+      <p class="msg" id="tokenMessage"></p>
       <div style="text-align: left; margin-bottom: 20px;">
+        <h2>Chào mừng <strong id="hoten"></strong>!</h2>
         <h4 style="margin-bottom: 5px;">Buổi sáng</h4>
         <div>Thời gian checkin: <span id="checkinsang"></span></div>
         <div>Thời gian checkout: <span id="checkoutsang"></span></div>
         <h4 style="margin-bottom: 5px;">Buổi chiều</h4>
-        <div>Thời gian checkin: <span id="checkinchieu"></span></div>
-        <div>Thời gian checkout: <span id="checkoutchieu"></span></div>
+          <div>Thời gian checkin: <span id="checkinchieu"></span></div>
+          <div>Thời gian checkout: <span id="checkoutchieu"></span></div>
+        </div>
+        <button id="checkinbtn">Checkin</button>
+        <button id="checkoutbtn">Checkout</button>
+        <p id="attendanceMessage"></p>
       </div>
-      <button id="checkinbtn">Checkin</button>
-      <button id="checkoutbtn">Checkout</button>
-      <p id="attendanceMessage"></p>
     </div>
   </div>
   
-  <script src="logged_in.js"></script>
+  <script src="./logged_in.js"></script>
 </body>
 </html>
